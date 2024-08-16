@@ -4,44 +4,64 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.weatherapp.ui.theme.WeatherAppTheme
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.weatherapp.routes.Routes
+import com.example.weatherapp.screens.ForecastScreen
+import com.example.weatherapp.screens.HomeScreen
+import com.example.weatherapp.screens.SearchScreen
+import com.example.weatherapp.screens.SettingsScreen
+import com.example.weatherapp.screens.WeatherDetailsScreen
 
+/**
+ * MainActivity is the entry point of the weather application.
+ * It extends ComponentActivity and is responsible for setting up
+ * the navigation between different screens using Jetpack Compose.
+ */
 class MainActivity : ComponentActivity() {
+    /**
+     * onCreate is called when the activity is first created.
+     * It initializes the UI and sets up the navigation host for the application.
+     *
+     * @param savedInstanceState A Bundle containing the activity's previously saved state.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Enable edge-to-edge display for the activity.
         enableEdgeToEdge()
+
+        // Set the content of the activity using Jetpack Compose.
         setContent {
-            WeatherAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+            // Create a NavController to manage app navigation.
+            val navController = rememberNavController()
+
+            // Set up the navigation host and define the composable destinations.
+            NavHost(
+                navController = navController,
+                startDestination = Routes.HOME_SCREEN,
+                builder = {
+                    // home screen route
+                    composable(Routes.HOME_SCREEN) {
+                        HomeScreen(navController = navController)
+                    }
+                    // forecast screen route
+                    composable(Routes.FORECAST_SCREEN) {
+                        ForecastScreen(navController = navController)
+                    }
+                    // search screen route
+                    composable(Routes.SEARCH_SCREEN) {
+                        SearchScreen(navController = navController)
+                    }
+                    // weather details screen route
+                    composable(Routes.WEATHER_DETAILS_SCREEN) {
+                        WeatherDetailsScreen(navController = navController)
+                    }
+                    // settings screen route
+                    composable(Routes.SETTINGS_SCREEN) {
+                        SettingsScreen(navController = navController)
+                    }
+                },)
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    WeatherAppTheme {
-        Greeting("Android")
     }
 }
