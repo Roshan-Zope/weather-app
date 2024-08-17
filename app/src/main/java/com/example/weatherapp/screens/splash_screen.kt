@@ -1,5 +1,6 @@
 package com.example.weatherapp.screens
 
+import android.window.SplashScreen
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,8 +18,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.weatherapp.R
 import com.example.weatherapp.routes.Routes
 import kotlinx.coroutines.delay
@@ -86,4 +89,15 @@ fun SplashScreen(
             )
         }
     }
+}
+
+// preview for splash screen
+@Preview(showBackground = true)
+@Composable
+fun SplashScreenPreview() {
+    // create a mock controller
+    val navController = rememberNavController()
+
+    // pass the mock controller to composable
+    SplashScreen(navController)
 }
