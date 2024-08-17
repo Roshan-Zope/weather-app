@@ -14,9 +14,12 @@ object Routes {
     // constant for search screen routes
     const val SEARCH_SCREEN = "search_screen"
 
-    // constant for settings screen routes
+    // constant for settings screen route
     const val SETTINGS_SCREEN = "settings_screen"
 
     // constant for weather details screen route
     const val WEATHER_DETAILS_SCREEN = "weather_details_screen"
+
+    // constant for splash screen route
+    const val SPLASH_SCREEN = "splash_screen"
 }
